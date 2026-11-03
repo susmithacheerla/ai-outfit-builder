@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Style the Look — Wireframes</title>
+<style>
+:root{--ink:#1c1c1c;--mid:#8a8a85;--line:#c9c9c3;--fill:#e4e4de;--fill2:#d6d6cf;--bg:#f1f1ec;--accent:#c4203f;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.4 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;padding:32px 28px 56px}
+h1{margin:0 0 4px;font-size:22px}
+.sub{margin:0 0 28px;color:var(--mid);max-width:760px}
+.flow{display:flex;gap:28px;overflow-x:auto;padding-bottom:20px;align-items:flex-start}
+.step{flex:none;width:300px}
+.cap{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px}
+.n{flex:none;width:26px;height:26px;border-radius:50%;background:var(--ink);color:#fff;font-weight:700;display:grid;place-items:center;font-size:13px}
+.cap b{display:block;font-size:14px}
+.cap span{color:var(--mid);font-size:12px}
+.frame{position:relative;width:300px;height:620px;background:#fff;border:2px solid var(--ink);border-radius:26px;overflow:hidden}
+/* primitives */
+.topbar{display:flex;align-items:center;gap:8px;padding:10px 12px;border-bottom:1px solid var(--line);background:#fff}
+.logo{font-weight:800;color:var(--accent);letter-spacing:.5px;margin-right:auto;font-size:13px}
+.dot{width:16px;height:16px;border:1.5px solid var(--ink);border-radius:50%}
+.sq{width:16px;height:12px;border:1.5px solid var(--ink)}
+.img{background:linear-gradient(to top right,transparent calc(50% - 1px),var(--line),transparent calc(50% + 1px)),linear-gradient(to bottom right,transparent calc(50% - 1px),var(--line),transparent calc(50% + 1px)),var(--fill);display:grid;place-items:center;color:var(--mid);font-size:11px;position:relative}
+.ln{height:7px;background:var(--fill2);border-radius:3px;margin:6px 0}
+.ln.s{width:55%}.ln.m{width:75%}.ln.l{width:92%}
+.pad{padding:12px}
+.h{font-weight:700;font-size:13px;display:flex;align-items:center;gap:6px}
+.btn{height:38px;background:var(--ink);color:#fff;display:grid;place-items:center;font-weight:700;font-size:12px;letter-spacing:.4px}
+.btn.dis{background:var(--fill2);color:#fff}
+.btn.out{background:#fff;color:var(--ink);border:1.5px solid var(--ink)}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{min-width:34px;height:26px;border:1.5px solid var(--line);border-radius:4px;display:grid;place-items:center;font-size:11px;padding:0 8px}
+.chip.on{border-color:var(--ink);background:var(--fill);font-weight:700}
+.chip.pill{border-radius:20px}
+.card{border:1px solid var(--line);background:#fff}
+.card .ph{height:130px}
+.card .mt{padding:6px 8px}
+.tag{position:absolute;left:6px;top:6px;background:var(--ink);color:#fff;font-size:9px;font-weight:700;padding:2px 5px;letter-spacing:.4px}
+.tag.r{left:auto;right:6px;top:auto;bottom:6px;background:#fff;color:var(--ink);border:1px solid var(--line)}
+.slots{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.empty{border:1.5px dashed var(--mid);height:100%;min-height:196px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;font-weight:700;font-size:12px;background:#fafaf7}
+.empty i{width:28px;height:28px;border:1.5px solid var(--ink);display:grid;place-items:center;font-style:normal;font-size:18px}
+.sticky{position:absolute;left:0;right:0;bottom:0;padding:10px 12px;background:#fff;border-top:1px solid var(--line)}
+.scrim{position:absolute;inset:0;background:rgba(0,0,0,.45)}
+.sheet{position:absolute;left:0;right:0;bottom:0;background:#fff;display:flex;flex-direction:column}
+.sheet .sh{padding:12px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:8px;font-weight:700}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.foot{padding:10px 12px;border-top:1px solid var(--line);display:flex;gap:10px;align-items:center}
+.sel{outline:2px solid var(--ink);outline-offset:-2px}
+.chk{position:absolute;right:6px;top:6px;width:18px;height:18px;background:var(--ink);color:#fff;font-size:11px;display:grid;place-items:center}
+.sweep{position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.7) 50%,transparent 70%)}
+.bar{height:6px;background:var(--fill2);border-radius:3px;overflow:hidden}
+.bar i{display:block;height:100%;width:62%;background:var(--ink)}
+.note{border:1px solid var(--line);background:#fafaf7;padding:8px 10px;font-size:11px}
+.thumbs{display:flex;gap:6px;overflow:hidden}
+.thumbs div{flex:none;width:46px}
+.thumbs .img{height:58px}
+.mini{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.mini .card{padding:6px;display:flex;gap:6px;align-items:center}
+.mini .img{width:34px;height:42px;flex:none}
+.warn{color:var(--accent);font-weight:700;font-size:10px}
+.row{display:flex;gap:10px;padding:10px 12px;border-bottom:1px solid var(--line)}
+.row .img{width:56px;height:70px;flex:none}
+.toast{position:absolute;left:12px;right:12px;bottom:72px;background:var(--ink);color:#fff;padding:10px 12px;font-size:12px;display:flex;gap:8px;align-items:center}
+.arrow{align-self:center;flex:none;font-size:22px;color:var(--mid);margin-top:300px}
+.legend{margin-top:22px;color:var(--mid);font-size:12px;max-width:760px}
+</style>
+</head>
+<body>
+<h1>Style the Look — wireframes</h1>
+<p class="sub">PDP outfit builder flow: add a bottom, pick it from the bottom sheet, generate the AI outfit, choose sizes, add both to the bag. Scroll sideways to follow the flow.</p>
+
+<div class="flow">
+
+<!-- 1 -->
+<div class="step">
+  <div class="cap"><div class="n">1</div><div><b>PDP: empty bottom slot</b><span>Shopper scrolls to "Style the Look" and taps Select Bottom.</span></div></div>
+  <div class="frame">
+    <div class="topbar"><div class="sq"></div><div class="logo">WROGN</div><div class="dot"></div><div class="dot"></div></div>
+    <div class="pad" style="padding-bottom:0">
+      <div class="chips" style="margin-bottom:10px"><div class="chip on">M</div><div class="chip">L</div><div class="chip">XL</div><div class="chip">2XL</div></div>
+      <div class="h">✦ Style the Look</div>
+      <div class="ln m"></div>
+      <div class="slots" style="margin-top:8px">
+        <div class="card"><div class="ph img"><span class="tag">THIS ITEM</span>shirt</div><div class="mt"><div class="ln l"></div><div class="ln s"></div></div></div>
+        <div class="empty"><i>+</i>Select Bottom<span style="font-weight:400;color:var(--mid);font-size:10px">Jeans &amp; trousers</span></div>
+      </div>
+      <div class="h" style="margin-top:14px">Check Delivery</div>
+      <div class="card" style="height:34px;margin-top:6px"></div>
+      <div class="ln l" style="margin-top:12px"></div><div class="ln m"></div>
+    </div>
+    <div class="sticky"><div class="btn">ADD TO BAG</div></div>
+  </div>
+</div>
+<div class="arrow">→</div>
+
+<!-- 2 -->
+<div class="step">
+  <div class="cap"><div class="n">2</div><div><b>Bottom sheet opens</b><span>Full-height sheet. Filter by type, tap a card to select it.</span></div></div>
+  <div class="frame">
+    <div class="sheet" style="top:0">
+      <div class="sh">‹ <span style="flex:1">Choose a Bottom</span><span style="font-weight:400;color:var(--mid);font-size:11px">6 items</span></div>
+      <div class="chips" style="padding:10px 12px 0"><div class="chip pill on">All</div><div class="chip pill">Jeans</div><div class="chip pill">Trousers</div><div class="chip pill">Cargos</div></div>
+      <div class="pad grid2" style="flex:1;overflow:hidden">
+        <div class="card sel"><div class="ph img" style="height:120px"><span class="tag">BEST MATCH</span><span class="chk">✓</span>bottom</div><div class="mt"><div class="ln l"></div><div class="ln s"></div></div></div>
+        <div class="card"><div class="ph img" style="height:120px"><span class="tag">BEST MATCH</span>bottom</div><div class="mt"><div class="ln l"></div><div class="ln s"></div></div></div>
+        <div class="card"><div class="ph img" style="height:120px">bottom</div><div class="mt"><div class="ln l"></div><div class="ln s"></div></div></div>
+        <div class="card"><div class="ph img" style="height:120px">bottom</div><div class="mt"><div class="ln l"></div><div class="ln s"></div></div></div>
+      </div>
+      <div class="foot"><div class="img" style="width:34px;height:42px"></div><div style="flex:1"><div class="ln l" style="margin:2px 0"></div><div class="ln s" style="margin:2px 0"></div></div><div class="btn" style="padding:0 14px">ADD TO LOOK</div></div>
+    </div>
+  </div>
+</div>
+<div class="arrow">→</div>
+
+<!-- 3 -->
+<div class="step">
+  <div class="cap"><div class="n">3</div><div><b>Bottom added</b><span>Both items shown. Primary action is Generate Outfit.</span></div></div>
+  <div class="frame">
+    <div class="topbar"><div class="sq"></div><div class="logo">WROGN</div><div class="dot"></div><div class="dot"></div></div>
+    <div class="pad" style="padding-bottom:0">
+      <div class="h">✦ Style the Look</div>
+      <div class="ln m"></div>
+      <div class="slots" style="margin-top:8px">
+        <div class="card"><div class="ph img"><span class="tag">THIS ITEM</span>shirt</div><div class="mt"><div class="ln l"></div><div class="ln s"></div></div></div>
+        <div class="card"><div class="ph img"><span class="tag">BOTTOM</span><span class="tag r">CHANGE</span>bottom</div><div class="mt"><div class="ln l"></div><div class="ln s"></div></div></div>
+      </div>
+      <div class="btn" style="margin-top:10px">✦ GENERATE OUTFIT</div>
+      <div class="warn" style="color:var(--mid);font-weight:400;text-align:center;margin-top:6px;font-size:11px">Creates a new look · 3 left today</div>
+      <div class="h" style="margin-top:14px">Check Delivery</div>
+      <div class="card" style="height:34px;margin-top:6px"></div>
+    </div>
+    <div class="sticky"><div class="btn">ADD TO BAG</div></div>
+  </div>
+</div>
+<div class="arrow">→</div>
+
+<!-- 4 -->
+<div class="step">
+  <div class="cap"><div class="n">4</div><div><b>Generating the AI image</b><span>Loading state with status text. Skipped when a saved look exists.</span></div></div>
+  <div class="frame">
+    <div class="topbar"><div class="sq"></div><div class="logo">WROGN</div><div class="dot"></div><div class="dot"></div></div>
+    <div class="pad" style="padding-bottom:0">
+      <div class="slots">
+        <div class="card"><div class="ph img" style="height:70px"></div></div>
+        <div class="card"><div class="ph img" style="height:70px"></div></div>
+      </div>
+      <div class="btn dis" style="margin-top:10px">GENERATING…</div>
+      <div class="img" style="height:290px;margin-top:10px;overflow:hidden">outfit preview<div class="sweep"></div>
+        <div style="position:absolute;left:10px;right:10px;bottom:10px;background:#fff;padding:8px 10px;border:1px solid var(--line)"><div style="font-size:11px;margin-bottom:6px">Matching the fit…</div><div class="bar"><i></i></div></div>
+      </div>
+    </div>
+    <div class="sticky"><div class="btn">ADD TO BAG</div></div>
+  </div>
+</div>
+<div class="arrow">→</div>
+
+<!-- 5 -->
+<div class="step">
+  <div class="cap"><div class="n">5</div><div><b>AI outfit ready</b><span>Look on a model, why it works, quick bottom swap, outfit total.</span></div></div>
+  <div class="frame">
+    <div class="pad" style="padding-top:10px">
+      <div class="img" style="height:210px"><span class="tag" style="left:8px;top:8px">AI-GENERATED OUTFIT PREVIEW</span><span class="tag r">⇄ CHANGE</span>outfit on model</div>
+      <div class="note" style="margin-top:8px"><b>Why this works:</b> earthy contrast that keeps the look smart-casual.</div>
+      <div class="h" style="margin-top:10px;justify-content:space-between">Change the trouser <span style="font-weight:400;color:var(--mid);font-size:10px">Tap to restyle</span></div>
+      <div class="thumbs" style="margin-top:6px"><div><div class="img sel"></div></div><div><div class="img"></div></div><div><div class="img"></div></div><div><div class="img"></div></div><div><div class="img"></div></div></div>
+      <div class="mini" style="margin-top:10px">
+        <div class="card"><div class="img"></div><div><div class="ln s" style="width:60px"></div><div class="warn">Select size</div></div></div>
+        <div class="card"><div class="img"></div><div><div class="ln s" style="width:60px"></div><div class="warn">Select size</div></div></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin:10px 0 6px;font-size:11px;color:var(--mid)">Outfit total (2 items)<b style="color:var(--ink);font-size:15px">₹3,398</b></div>
+      <div class="btn">ADD OUTFIT TO BAG · ₹3,398</div>
+      <div style="text-align:center;font-size:11px;text-decoration:underline;margin-top:8px">Start over</div>
+    </div>
+  </div>
+</div>
+<div class="arrow">→</div>
+
+<!-- 6 -->
+<div class="step">
+  <div class="cap"><div class="n">6</div><div><b>Select your sizes</b><span>One sheet for both items. Shirt size carries over. Button enables when both chosen.</span></div></div>
+  <div class="frame">
+    <div class="pad" style="opacity:.9"><div class="img" style="height:200px"></div><div class="ln l"></div><div class="ln m"></div></div>
+    <div class="scrim"></div>
+    <div class="sheet">
+      <div class="sh"><span style="flex:1">Select your sizes</span>✕</div>
+      <div class="row"><div class="img"></div><div style="flex:1"><div class="ln l" style="margin-top:0"></div><div class="ln s"></div><div style="font-size:10px;font-weight:700">Size M</div><div class="chips" style="margin-top:4px"><div class="chip" style="min-width:26px;height:22px">S</div><div class="chip on" style="min-width:26px;height:22px">M</div><div class="chip" style="min-width:26px;height:22px">L</div><div class="chip" style="min-width:26px;height:22px">XL</div></div></div></div>
+      <div class="row"><div class="img"></div><div style="flex:1"><div class="ln l" style="margin-top:0"></div><div class="ln s"></div><div class="warn">Select size</div><div class="chips" style="margin-top:4px"><div class="chip" style="min-width:26px;height:22px">28</div><div class="chip" style="min-width:26px;height:22px">30</div><div class="chip" style="min-width:26px;height:22px">32</div><div class="chip" style="min-width:26px;height:22px">34</div></div></div></div>
+      <div style="display:flex;justify-content:space-between;padding:10px 12px;font-weight:700"><span>Outfit total</span><span>₹3,398</span></div>
+      <div class="foot"><div class="btn dis" style="flex:1">ADD 2 ITEMS · ₹3,398</div></div>
+    </div>
+  </div>
+</div>
+<div class="arrow">→</div>
+
+<!-- 7 -->
+<div class="step">
+  <div class="cap"><div class="n">7</div><div><b>Added to bag</b><span>Confirmation toast, bag count updates, back to the page.</span></div></div>
+  <div class="frame">
+    <div class="topbar"><div class="sq"></div><div class="logo">WROGN</div><div class="dot"></div><div style="position:relative"><div class="dot"></div><span style="position:absolute;right:-8px;top:-8px;background:var(--ink);color:#fff;font-size:9px;font-weight:700;padding:1px 4px">4</span></div></div>
+    <div class="pad">
+      <div class="h">✦ Style the Look</div>
+      <div class="slots" style="margin-top:8px">
+        <div class="card"><div class="ph img"><span class="tag">THIS ITEM</span>shirt</div><div class="mt"><div class="ln l"></div><div class="ln s"></div></div></div>
+        <div class="card"><div class="ph img"><span class="tag">BOTTOM</span>bottom</div><div class="mt"><div class="ln l"></div><div class="ln s"></div></div></div>
+      </div>
+    </div>
+    <div class="toast">✓ Outfit added — 2 items in your bag</div>
+    <div class="sticky"><div class="btn">ADD TO BAG</div></div>
+  </div>
+</div>
+
+</div>
+<p class="legend">Grey boxes are image placeholders. Frame 4 is skipped when a saved (pre-generated) look already exists, and the "3 left today" line in frame 3 applies only if live generation with an allowance is used.</p>
+</body>
+</html>

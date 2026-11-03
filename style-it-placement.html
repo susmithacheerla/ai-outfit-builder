@@ -1,0 +1,60 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Style it toggle — placement options</title>
+<style>
+:root{--ink:#121212;--g6:#6b6b6b;--g3:#c9c9c9;--g1:#ececec;--red:#d81e3f}
+*{box-sizing:border-box}body{margin:0;background:#ececec;font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif;color:var(--ink)}
+button{font-family:inherit;cursor:pointer}
+.top{padding:16px 20px 0}.top h1{margin:0 0 4px;font-size:20px}.top p{margin:0;color:var(--g6);font-size:13px;line-height:1.4}
+.tabs{display:flex;gap:8px;padding:12px 20px;flex-wrap:wrap}
+.tab{border:1px solid var(--g3);background:#fff;border-radius:100px;padding:8px 14px;font-size:13px;font-weight:600}.tab.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.row{display:flex;gap:18px;padding:0 20px 20px;flex-wrap:wrap;align-items:flex-start}
+.card{background:#fff;border:1px solid var(--g3);padding:12px}.card h3{margin:0 0 4px;font-size:15px}.card p{margin:0 0 8px;font-size:13px;line-height:1.4;color:#333}
+.phone{position:relative;width:436px;height:760px;overflow:hidden;background:#fff;transform-origin:top left}
+.phone img.bg{display:block;width:436px;height:760px}
+.pill{position:absolute;display:flex;align-items:center;gap:6px;background:#fff;color:var(--ink);border:0;border-radius:100px;box-shadow:0 2px 10px rgba(0,0,0,.28);font-size:15px;font-weight:700;height:34px;padding:0 14px 0 11px;letter-spacing:.1px}
+.pill svg{flex:none}
+.circ{position:absolute;width:72px;height:72px;border-radius:50%;background:#fff;color:var(--ink);border:1.5px solid var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:12px;font-weight:800;line-height:1.1;letter-spacing:.4px;box-shadow:0 2px 10px rgba(0,0,0,.28);text-align:center}
+.wrapbox{overflow:hidden}
+.notes{flex:1;min-width:300px;max-width:560px}
+.notes ul{margin:0 0 10px;padding-left:18px;font-size:14px;line-height:1.5}.notes h5{margin:12px 0 4px;font-size:12px;letter-spacing:.5px;text-transform:uppercase;color:var(--g6)}
+.rec{display:inline-block;background:var(--ink);color:#fff;font-size:11px;font-weight:700;padding:3px 8px;margin-bottom:8px}
+.legend{font-size:12px;color:var(--g6);padding:0 20px 14px}
+</style></head><body>
+<div class="top"><h1>Where should the "Style it" toggle go?</h1><p>Based on your live WROGN product page. Existing elements on the photo: <b>NEW DROP</b> tag (top-left), carousel arrow (left-middle), <b>similar products</b> icon (bottom-left) and the <b>Look Book</b> widget (bottom-right).</p></div>
+<div class="tabs" id="tabs"></div>
+<div class="row" id="row"></div>
+<div class="legend" id="legend"></div>
+<script>
+const spark=`<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.9 6.1L20 10l-6.1 1.9L12 18l-1.9-6.1L4 10l6.1-1.9L12 2z"/></svg>`;
+const OPT={
+A:{name:'A  Top-right pill',rec:true,over:`<button class="pill" style="right:14px;top:156px">${spark}Style it</button>`,
+ p:'A white pill in the empty top-right corner, level with the NEW DROP tag.',
+ good:['The only free corner, so no collision with any existing element','Mirrors NEW DROP, so the photo looks balanced','Stays in the same place even on products with no NEW DROP tag','Does not cover the model\'s body'],
+ bad:['Less central, so slightly easier to overlook than a bottom pill','Needs a clear label ("Style it"), not just an icon']},
+B:{name:'B  Bottom-centre pill',over:`<button class="pill" style="left:50%;transform:translateX(-50%);top:670px">${spark}Style it with bottoms</button>`,
+ p:'A wider pill in the gap between the similar-products icon and the Look Book widget.',
+ good:['Most noticeable position, close to where the thumb is','The longer label explains what it does'],
+ bad:['Makes a crowded bottom row: icon, pill and Look Book on one line','Sits over the model\'s legs','Close to the carousel dots just below the photo']},
+C:{name:'C  Above Look Book',over:`<div class="circ" style="left:348px;top:543px">${spark}<span style="margin-top:3px">STYLE<br>IT</span></div>`,
+ p:'A round button stacked above the Look Book widget, in the same shape family.',
+ good:['Groups the two "styling" features together','Round shape feels consistent with Look Book'],
+ bad:['Two round buttons stacked on the right edge cover the model\'s arm','Shoppers may confuse it with Look Book, which is editorial','Looks heavy on a small phone']}};
+let mode='all';
+function phone(k,scale){const o=OPT[k];const w=436*scale,h=760*scale;
+ return `<div class="wrapbox" style="width:${w}px;height:${h}px"><div class="phone" style="transform:scale(${scale})"><img class="bg" src="live-pdp-top.png" alt="">${o.over}</div></div>`}
+function render(){
+ document.getElementById('tabs').innerHTML=[['all','Compare all'],['A','A  Top-right'],['B','B  Bottom-centre'],['C','C  Above Look Book']].map(([k,l])=>`<button class="tab ${mode===k?'on':''}" data-k="${k}">${l}</button>`).join('');
+ const row=document.getElementById('row');
+ if(mode==='all'){
+  row.innerHTML=Object.keys(OPT).map(k=>`<div class="card" style="width:${436*.52+24}px">${OPT[k].rec?'<span class="rec">RECOMMENDED</span>':''}<h3>${OPT[k].name}</h3>${phone(k,.52)}</div>`).join('');
+  document.getElementById('legend').textContent='Tap a tab above to see one option at full size, with its pros and cons.';
+ }else{
+  const o=OPT[mode];
+  row.innerHTML=`<div class="card">${phone(mode,1)}</div><div class="card notes">${o.rec?'<span class="rec">RECOMMENDED</span>':''}<h3>${o.name}</h3><p>${o.p}</p><h5>Good for</h5><ul>${o.good.map(x=>`<li>${x}</li>`).join('')}</ul><h5>Watch out for</h5><ul>${o.bad.map(x=>`<li>${x}</li>`).join('')}</ul>
+  <h5>When the shopper taps it</h5><ul><li>The photo changes to the outfit image</li><li>The Look Book widget and similar-products icon hide, so the photo is not crowded</li><li>The 5 bottoms appear along the bottom edge, with a "Photos" pill to go back</li><li>A slim "Add both" bar appears under the photo</li></ul></div>`;
+  document.getElementById('legend').textContent='';
+ }
+}
+document.addEventListener('click',e=>{const t=e.target.closest('[data-k]');if(t){mode=t.dataset.k;render()}});
+render();
+</script></body></html>
